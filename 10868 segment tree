@@ -1,0 +1,42 @@
+#include<stdio.h>
+#define MAX_N 100000
+#define INF 1900000000
+int MIN(int a, int b){
+	return a < b ? a : b;
+}
+//재귀 정의 할거면 함수는 안에 정의 하는게 안전
+int n, m, a, b, tree[(2 * MAX_N) + 1];
+
+int update(int pos, int val, int node, int x, int y){
+	if (pos < x || y < pos){
+		return tree[node];
+	}
+	if (x == y){
+		return tree[node] = val;
+	}
+	int mid = (x + y) >> 1;
+	return tree[node] = MIN(update(pos, val, node * 2, x, mid), update(pos, val, node * 2 + 1, mid + 1, y));
+}
+int findMin(int l, int h, int node, int x, int y){
+	if (l>y || h < x){
+		return INF;
+	}
+	if (l <= x&&y <= h){
+		return tree[node];
+	}
+	int mid = (x + y) >> 1;
+	return MIN(findMin(l, h, node * 2, x, mid), findMin(l, h, node * 2 + 1, mid + 1, y));
+}
+int main(void){
+	freopen("input.txt", "r", stdin);
+	scanf("%d%d", &n, &m);
+	for (int i = 1; i <= n; i++){
+		scanf("%d", &a);
+		update(i, a, 1, 1, n);
+	}
+	for (int i = 0; i < m; i++){
+		scanf("%d%d", &a, &b);
+		printf("%d\n",findMin(a, b, 1, 1, n));
+	}
+	return 0;
+}
