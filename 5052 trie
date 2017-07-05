@@ -1,0 +1,48 @@
+#include<stdio.h>
+
+struct Trie{
+	Trie* go[10];
+	bool isEnd, isExist;
+	Trie(){
+		for (int i = 0; i < 10; i++){
+			go[i] = 0;
+			isEnd = false; isExist = false;
+		}
+	}
+	~Trie(){
+		for (int i = 0; i < 10; i++){
+			if (go[i])delete go[i];
+		}
+	}
+	bool insert(const char* key){
+		if (*key == '\0'){
+			isEnd = true;
+			return isExist;
+		}
+		int next = *key - '0';
+		if (!go[next])go[next] = new Trie;
+		isExist = true;
+		return isEnd || go[next]->insert(key + 1);
+	}
+};
+
+int test_case, n;
+bool result;
+char s[11];
+int main(void){
+	freopen("input.txt", "r", stdin);
+	scanf("%d", &test_case);
+	for (int TC = 1; TC <= test_case; TC++){
+		scanf("%d", &n);
+		Trie *root = new Trie;
+		result = true;
+		for (int i = 0; i < n; i++){
+			scanf("%s", s);
+			if (result&&root->insert(s))result = false;
+		}
+		if (result)printf("YES\n");
+		else{ printf("NO\n"); }
+		delete root;
+	}
+	return 0;
+}
