@@ -5,6 +5,7 @@ int MIN(int a, int b){
 	return a < b ? a : b;
 }
 //재귀 정의 할거면 함수는 안에 정의 하는게 안전
+// i >>= 1,  i = i >> 1
 int n, m, a, b, tree[(2 * MAX_N) + 1];
 
 int update(int pos, int val, int node, int x, int y){
