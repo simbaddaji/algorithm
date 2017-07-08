@@ -41,3 +41,44 @@ int main(void){
 	}
 	return 0;
 }
+
+/*
+#include<stdio.h>
+#include<algorithm>
+using namespace std;
+#define SZ 131072
+int IT[SZ + SZ + 1];
+int n, m;
+void Ins(int a, int b){
+	a += SZ;
+	IT[a] = b;
+	while (a != 1){
+		a >>= 1;
+		IT[a] = min(IT[a * 2], IT[a * 2 + 1]);
+	}
+}
+int Min(int b, int e){
+	b += SZ, e += SZ;
+	int r = 1111111111;
+	while (b <= e){
+		r = min(r, IT[b]);
+		r = min(r, IT[e]);
+		b = (b + 1) >> 1, e = (e - 1) >> 1;
+	}
+	return r;
+}
+int main(){
+	freopen("input.txt", "r", stdin);
+	int i, x, b, e;
+	scanf("%d%d", &n, &m);
+	for (i = 1; i <= n; i++){
+		scanf("%d", &x);
+		Ins(i, x);
+	}
+	while (m--){
+		scanf("%d%d", &b, &e);
+		printf("%d\n", Min(b, e));
+	}
+}
+
+*/
