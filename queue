@@ -1,0 +1,44 @@
+#include<stdio.h>
+#define arr_size 1000
+
+
+
+typedef struct queue{
+	int x;
+}QUEUE;
+
+QUEUE arr[arr_size];
+int front = 0, rear = 0;
+
+void initQ(){
+	front = 0;
+	rear = 0;
+}
+void enqueue(QUEUE *q){
+	if ((rear + 1) % arr_size == front%arr_size){
+		//
+	}
+	else{
+		rear = (rear + 1) % arr_size;
+		arr[rear] = *q;
+	}
+}
+void dequeue(QUEUE *q){
+	if (front == rear){
+		//
+	}
+	else{
+		front = (front + 1) % arr_size;
+		*q = arr[front];
+	}
+}
+
+int main(void){
+	initQ();
+	QUEUE tmp1, tmp2;
+	tmp1.x = 53;
+	enqueue(&tmp1);
+	dequeue(&tmp2);
+	printf("%d", tmp2.x);
+	return 0;
+}
